@@ -198,7 +198,7 @@ else
     esac
   done
   [ -n "$app_path" ] || fatal "Could not read the AppImage path from $DESKTOP"
-  new_exec="Exec=env LD_LIBRARY_PATH=$INSTALL_DIR QT_PLUGIN_PATH=$INSTALL_DIR/qt6/plugins QT_QPA_PLATFORM=\"wayland;xcb\"${keep_vars:+$keep_vars} $app_path"
+  new_exec="Exec=env LD_LIBRARY_PATH=$INSTALL_DIR QT_PLUGIN_PATH=$INSTALL_DIR/qt6/plugins QT_QPA_PLATFORM=\"wayland-egl;wayland;xcb\"${keep_vars:+$keep_vars} $app_path"
 
   awk -v new="$new_exec" '/^Exec=/{ print new; next } { print }' \
     "$DESKTOP" > "$DESKTOP.tmp" && mv -f "$DESKTOP.tmp" "$DESKTOP"

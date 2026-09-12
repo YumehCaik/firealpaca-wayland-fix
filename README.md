@@ -63,10 +63,11 @@ Then relaunch FireAlpaca from your application menu.
 
 | Symptom | Fix |
 | --- | --- |
-| Pen moves the cursor but always paints at weird pressure | A session restart was missed — log out and back in with the tablet plugged in so KWin registers it as a tablet |
+| Pen moves the cursor but always paints at max pressure | A session restart was missed — log out and back in with the tablet plugged in so KWin registers it as a tablet |
+| Visible artifacts / glitches while drawing | The software rendering backend got selected because OpenGL/EGL isn't available — the script prefers the GPU-backed `wayland-egl` backend and falls back automatically. Check your graphics drivers (`glxinfo`, or try the X11 session) |
 | AppImage not found | Pass it explicitly: `-a /path/to/firealpaca.appimage` |
 | No qt6-wayland package for your Qt version | Newer or older FireAlpaca AppImage; the script tries older ABI-compatible Qt versions first |
-| Still runs under XWayland | Check `xeyes`/`xwininfo`; make sure `QT_QPA_PLATFORM=wayland;xcb` is in the `Exec=` line |
+| Still runs under XWayland | Check `xeyes`/`xwininfo`; make sure `QT_QPA_PLATFORM="wayland-egl;wayland;xcb"` is in the `Exec=` line |
 | Pressure works in Krita but not FireAlpaca | That is exactly this bug — re-run the patch and relaunch FireAlpaca |
 
 ## License
