@@ -2,13 +2,17 @@
 
 Fix **FireAlpaca pen pressure on KDE Plasma / GNOME / Wayland**.
 
+## This is a vibe-coded
+
+Since x11 wont be around too soon i decided to make it with the help of OpenCode and FireAlpaca is being my favorite app to use in windows (atleast) i decided to create this script,
+
 ## Why
 
 FireAlpaca's Linux AppImage only bundles the **X11** Qt platform plugin. On a
 Wayland session it is therefore forced through XWayland, where the Wayland
 tablet protocol is **not** passed through — your drawing tablet (Wacom, Huion,
 XP-Pen, Gaomon, ...) degrades to a plain mouse and **pen pressure stops
-working**. On X11 pressure works fine, which is the classic
+working** or it does weird shaped lines. On X11 pressure works fine, which is the classic
 "it works on X11 but not Wayland" symptom.
 
 This script gives the AppImage the **Qt Wayland platform plugin that matches
@@ -48,17 +52,9 @@ Then relaunch FireAlpaca from your application menu.
 ./patch-firealpaca.sh --uninstall
 ```
 
-### What counts as success
-
-Look in the terminal output for:
-
-```
-Done! FireAlpaca will now run as a native Wayland app, so pen pressure works.
-```
-
 ## Requirements
 
-- Linux (FireAlpaca Linux AppImage)
+- FireAlpaca Linux AppImage
 - `bash`, `curl`, `tar`, `zstd`
 - Super handy if you have a second monitor... you know, for sanity-checking that
   pressure actually differs from a mouse.
@@ -67,7 +63,7 @@ Done! FireAlpaca will now run as a native Wayland app, so pen pressure works.
 
 | Symptom | Fix |
 | --- | --- |
-| Pen moves the cursor but always paints at max pressure | A session restart was missed — log out and back in with the tablet plugged in so KWin registers it as a tablet |
+| Pen moves the cursor but always paints at weird pressure | A session restart was missed — log out and back in with the tablet plugged in so KWin registers it as a tablet |
 | AppImage not found | Pass it explicitly: `-a /path/to/firealpaca.appimage` |
 | No qt6-wayland package for your Qt version | Newer or older FireAlpaca AppImage; the script tries older ABI-compatible Qt versions first |
 | Still runs under XWayland | Check `xeyes`/`xwininfo`; make sure `QT_QPA_PLATFORM=wayland;xcb` is in the `Exec=` line |
